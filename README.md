@@ -4,8 +4,7 @@
 VectorDrive is a high-frequency, embedded autonomous navigation system designed for high-speed line tracking on complex geometries. It leverages **direct ADC register manipulation** for ultra-low latency sensing and implements **voltage-compensated adaptive PID control** to ensure consistent kinematic performance regardless of battery discharge curves.
 
 ## Demo
-![VectorDrive Demo](media/demo_run.gif)
-*Figure 1: VectorDrive negotiating a 90-degree turn at 1.2m/s.*
+![VectorDrive Demo](https://github.com/user-attachments/assets/c74c64aa-6dd4-45f4-a26e-4c65b108e6ee)
 
 ## Key Engineering Features
 * **Voltage-Agnostic Velocity Control:** Implements a dynamic `VOLTAGE_MULTIPLIER` derived from real-time battery monitoring (`ADC_REF / CURRENT_BAT`). This scales PWM output to maintain constant motor RPM as battery voltage drops, eliminating the "slowdown" effect during long runs.
