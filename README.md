@@ -35,7 +35,7 @@ $$u(t) = K_p^{adaptive}e(t) + K_i\int e(t)dt + K_d^{adaptive}\frac{de}{dt}$$
 ## Getting Started
 
 ### Hardware Requirements
-* **Microcontroller:** ATmega328P based board (Arduino Nano/Uno)
+* **Microcontroller:** ATmega328P based board (Arduino Nano)
 * **Sensors:** 8-Channel IR Reflectance Array (Digital/Analog)
 * **Driver:** TB6612FNG or L298N Dual Motor Driver
 * **Power:** 2S/3S LiPo Battery (Voltage divider on ADC 3 required)
