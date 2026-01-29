@@ -4,12 +4,14 @@
 VectorDrive is a high-frequency, embedded autonomous navigation system designed for high-speed line tracking on complex geometries. It leverages **direct ADC register manipulation** for ultra-low latency sensing and implements **voltage-compensated adaptive PID control** to ensure consistent kinematic performance regardless of battery discharge curves.
 
 ## Demo
-![VectorDrive Demo](https://github.com/user-attachments/assets/c74c64aa-6dd4-45f4-a26e-4c65b108e6ee)
+[![VectorDrive Demo](https://github.com/user-attachments/assets/c74c64aa-6dd4-45f4-a26e-4c65b108e6ee)](https://youtu.be/B0RJNDL_aM8)
+
+*Click to watch full demo on YouTube*
 
 ## Key Engineering Features
-* **Voltage-Agnostic Velocity Control:** Implements a dynamic `VOLTAGE_MULTIPLIER` derived from real-time battery monitoring (`ADC_REF / CURRENT_BAT`). This scales PWM output to maintain constant motor RPM as battery voltage drops, eliminating the "slowdown" effect during long runs.
+* **Voltage-Agnostic Velocity Control:** Implements a dynamic `VOLTAGE_MULTIPLIER` derived from real-time battery monitoring `ADC_REF / CURRENT_BAT`). This scales PWM output to maintain constant motor RPM as battery voltage drops, eliminating the "slowdown" effect during long runs.
 * **Heuristic Adaptive PID:** Features a non-linear control loop that dynamically boosts $K_p$ and $K_d$ gains by **1.5x** when `abs(error) > 10`. This allows for smooth oscillation-free straight-line driving while providing aggressive torque response during acute cornering.
-* **Optimized ADC Latency:** Bypasses standard Arduino `analogRead` overhead by directly manipulating the `ADCSRA` registers (`sbi`/`cbi` macros), setting prescalers to minimize sensor integration time without sacrificing resolution.
+* **Optimized ADC Latency:** Bypasses standard Arduino `analogRead` overhead by directly manipulating the `ADCSRA` registers `sbicbi` macros), setting prescalers to minimize sensor integration time without sacrificing resolution.
 * **Robust Failsafe Recovery:** Implements a "Last Known State" memory buffer. If the line is lost, the system utilizes the `lastError` polarity to execute a hard recovery turn in the direction of the track, rather than drifting aimlessly.
 
 ## System Architecture
@@ -42,16 +44,16 @@ $$u(t) = K_p^{adaptive}e(t) + K_i\int e(t)dt + K_d^{adaptive}\frac{de}{dt}$$
 
 ### Installation
 1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/yourusername/vectordrive.git](https://github.com/yourusername/vectordrive.git)
-    ```
+```bash
+    git clone https://github.com/yourusername/vectordrive.git
+```
 2.  **Pin Configuration:**
     Ensure your hardware matches the pin definitions in the macro section:
-    ```cpp
+```cpp
     #define AIN1 4  // Left Motor Logic 1
     #define BIN1 6  // Right Motor Logic 1
     #define CALIBRATE_BTN 11
-    ```
+```
 3.  **Calibration:**
     * **Preset:** Set `USE_PRESET_CALIBRATION = true` if you have hardcoded values.
     * **Manual:** Set to `false`. Hold the `CALIBRATE_BTN` on boot and sweep the robot across the line for 3 seconds.
